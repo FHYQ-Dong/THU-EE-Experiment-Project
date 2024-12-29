@@ -1,0 +1,9 @@
+\begin{circuitikz}[american voltages]
+    \ctikzset{resistors/scale=0.5}
+    \draw (0,0) node[op amp] (opamp) {};
+    \draw (opamp.out) to[short] ++(0.5,0) coordinate(opout) to[short,-o] ++(1,0) node[right]{$ v_{out} $};
+    \draw (opamp.-) to[short] ++(-0.5,0) to[short] ++(0,0.5) coordinate(op-) to [R, l=$ R $] ++(-2,0) to[short] ++(0,-1) coordinate(vin) to[short, -o] ++(-1,0) node[left]{$ v_{in} $};
+    \draw (opamp.+) to[short] ++(-0.5,0) to[short] ++(0,-0.5) coordinate(op+) to[C, l=$ C $] ++(-2,0) to[short, -*] (vin);
+    \draw (op+) to[R, l=$ R_W $, *-] ++(0,-1) node[ground]{};
+    \draw (op-) to[short, *-] ++(0,1) coordinate(tmptmp) to[R, l=$ R $] (opout |- tmptmp) to[short, -*] (opout);
+\end{circuitikz}

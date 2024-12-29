@@ -1,0 +1,6 @@
+\begin{circuitikz}[american voltages]
+    \ctikzset{resistors/scale=0.5}
+    \draw (0,0) to[inline schmitt] (2,0) to[short] (2,1.5) to[R, l_=$ R $] (0,1.5) to[short] (0,0);
+    \draw (0,1.5) to[short] (-1,1.5) to[C, l_=$ C $] (-1,0) to[short] (-1,0) node[ground]{};
+    \draw (2,0) to[short, -o] (3,0) node[right]{$ v_{out} $};
+\end{circuitikz}

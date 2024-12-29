@@ -1,0 +1,67 @@
+\begin{circuitikz}[american voltages]
+    \ctikzset{resistors/scale=0.5}
+    \ctikzset{multipoles/thickness=4}
+    \ctikzset{multipoles/external pins thickness=2}
+    \ctikzset{multipoles/dipchip/width=2}
+    \draw (0,0) node[
+        dipchip,
+        num pins=18,
+        hide numbers,
+        external pins width=0,
+    ](HC161){HC161};
+    \node [right, font=\tiny] at (HC161.bpin 1) {A};
+    \node [right, font=\tiny] at (HC161.bpin 2) {B};
+    \node [right, font=\tiny] at (HC161.bpin 3) {C};
+    \node [right, font=\tiny] at (HC161.bpin 4) {D};
+    \node [right, font=\tiny] at (HC161.bpin 5) {ENP};
+    \node [right, font=\tiny] at (HC161.bpin 6) {ENT};
+    \node [right, font=\tiny] at (HC161.bpin 7) {$ \mathrm{\overline{LOAD}} $};
+    \node [right, font=\tiny] at (HC161.bpin 8) {$ \mathrm{\overline{CLR}} $};
+    \draw (HC161.bpin 9) -- ++(0, 0.1) -- ++(0.1,-0.1) coordinate(clklable) -- ++(-0.1,-0.1);
+    \node [right, font=\tiny] at (clklable) {CLK};
+    \node [left, font=\tiny] at (HC161.bpin 18) {QA};
+    \node [left, font=\tiny] at (HC161.bpin 17) {QB};
+    \node [left, font=\tiny] at (HC161.bpin 16) {QC};
+    \node [left, font=\tiny] at (HC161.bpin 15) {QD};
+    \node [left, font=\tiny] at (HC161.bpin 13) {RCO};
+
+    \draw (8,0) node[
+        dipchip,
+        num pins=18,
+        hide numbers,
+        external pins width=0,
+    ](HC161_2){HC161};
+    \node [right, font=\tiny] at (HC161_2.bpin 1) {A};
+    \node [right, font=\tiny] at (HC161_2.bpin 2) {B};
+    \node [right, font=\tiny] at (HC161_2.bpin 3) {C};
+    \node [right, font=\tiny] at (HC161_2.bpin 4) {D};
+    \node [right, font=\tiny] at (HC161_2.bpin 5) {ENP};
+    \node [right, font=\tiny] at (HC161_2.bpin 6) {ENT};
+    \node [right, font=\tiny] at (HC161_2.bpin 7) {$ \mathrm{\overline{LOAD}} $};
+    \node [right, font=\tiny] at (HC161_2.bpin 8) {$ \mathrm{\overline{CLR}} $};
+    \draw (HC161_2.bpin 9) -- ++(0, 0.1) -- ++(0.1,-0.1) coordinate(clklable) -- ++(-0.1,-0.1);
+    \node [right, font=\tiny] at (clklable) {CLK};
+    \node [left, font=\tiny] at (HC161_2.bpin 18) {QA};
+    \node [left, font=\tiny] at (HC161_2.bpin 17) {QB};
+    \node [left, font=\tiny] at (HC161_2.bpin 16) {QC};
+    \node [left, font=\tiny] at (HC161_2.bpin 15) {QD};
+    \node [left, font=\tiny] at (HC161_2.bpin 13) {RCO};
+
+    \draw (HC161.pin 5) -- ++(-0.5,0) coordinate(ENP) -- ++(0,3) node[vcc]{VDD};
+    \draw (HC161.pin 6) -- ++(-0.5,0) coordinate(ENT) to[short, -*] (ENP);
+    \draw (HC161.pin 7) -- ++(-0.5,0) coordinate(NLOAD) to[short, -*] (ENT);
+    \draw (HC161.pin 8) -- ++(-0.5,0) coordinate(CLR);
+    \draw (HC161.pin 9) to[short, -o] ++(-1,0) node[left]{$ v_{in} $};
+    \coordinate (mid_QAQB) at ($(HC161.pin 18)!0.5!(HC161.pin 17)$);
+    \node [ieeestd nand port](NAND) at ($(mid_QAQB) + (2,0)$) {};
+    \draw (HC161.pin 18) -- (NAND.in 1);
+    \draw (HC161.pin 17) -- ++(0.5,0) coordinate(QB) -- (NAND.in 2);
+    \draw (NAND.out) -- ++(0.5,0) -- ++(0,-5) coordinate(mid_outclr) -- (CLR |- mid_outclr) -- (CLR);
+    \draw (QB) to[short, *-] (QB |- HC161_2.pin 9) -- (HC161_2.pin 9);
+
+    \draw (HC161_2.pin 5) -- ++(-0.5,0) coordinate(ENP_2) -- ++(0,3) node[vcc]{VDD};
+    \draw (HC161_2.pin 6) -- ++(-0.5,0) coordinate(ENT_2) to[short, -*] (ENP_2);
+    \draw (HC161_2.pin 7) -- ++(-0.5,0) coordinate(NLOAD_2) to[short, -*] (ENT_2);
+    \draw (HC161_2.pin 8) -- ++(-0.5,0) coordinate(CLR_2) to[short, -*] (NLOAD_2);
+    \draw (HC161_2.pin 18) to[short, -o] ++(1,0) node[right]{$ v_{out} $};
+\end{circuitikz}
